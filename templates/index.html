@@ -1,0 +1,486 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Home</title>
+
+<script src="../static/js/jquery.min.js"></script>
+<style>
+    /* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: 'regular';
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1.3;
+   overflow-x: hidden;
+   
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+section{margin-bottom: 60px;}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+.hero{
+    text-align: center;display: flex;justify-content: center;align-items: center;
+    background-image: url(../static/img/MU2.jpg);height: 100vh;background-position: center top;background-size: cover;
+    position: relative;
+}
+
+.hero .overlay{height: 100%;width: 100%;background-color: rgba(0, 0, 0, 0.678);position: absolute;}
+
+.hero .inner h1{
+    font-size: 60px;color: white;padding-top: 25%;
+}
+ .hero .inner p{font-size: 20px;color: white;}
+
+
+ .hero .inner form{width: 60%;text-align: left;}
+
+ .hero .inner form h3{font-size: 30px;color: white;padding-bottom: 20px;text-align: left;}
+.hero .inner form input, textarea{
+    padding: 10px;border: 1px solid white;border-radius: 3px;margin-bottom: 20px;outline: none;
+    width: 100%;
+}
+
+.hero .inner form label{color: white;font-size: 20px;}
+.hero .inner form select{outline: none;padding: 10px;margin-bottom: 20px;width: 100%;}
+
+.hero .inner form button{
+    width: 100%;padding: 10px;border-radius: 3px;border:none;background-image: linear-gradient(to right, #c33764, #1d2671);color: white;
+}
+
+/* ABOUT SECTION */
+
+.about .inner{padding-top: 50px;}
+.about .inner h2{
+    font-size: 40px;
+}
+
+.about .inner p{
+    font-size: 18px;padding-bottom: 30px;
+}
+
+
+/* SERVICES SECTION */
+
+.services{
+    background: #f7f7f7;padding: 40px 20px;
+}
+
+.services .inner{
+    padding: 0 30px;
+}
+
+.services .inner h4{
+    font-size: 20px;padding: 10px 0;
+}
+
+.services h2{font-size: 40px;padding-bottom: 30px;}
+
+
+.gallery h2{
+    font-size: 40px;padding-bottom: 30px;
+}
+
+
+.gallery img{
+    width: 24%;
+}
+
+
+footer .social a{
+ padding: 20px;
+}
+
+/* CHATBOT */
+
+
+h1
+{
+color: black;
+margin-bottom: 0;
+margin-top: 0;
+text-align: center;
+font-size: 40px;
+}
+h3
+{
+color: black;
+font-size: 20px;
+margin-top: 3px;
+text-align: center;
+}
+
+.chat-screen{
+    position: fixed;
+    bottom: 68px;
+    right: 20px;
+    z-index: 9999;
+    width: 450px;
+    background: #fff;
+    box-sizing: border-box;
+    border-radius: 15px;
+    box-shadow: 0px 15px 20px rgba(0, 0, 0,0.1);
+    visibility: hidden;
+}
+
+
+.chat-screen.show-chat{
+    transition: bottom 0.5s linear;
+    visibility: visible;
+    bottom: 82px;
+}
+
+
+
+
+
+
+#chatbox
+{
+background-image: linear-gradient(to right, #c33764, #1d2671);
+margin-left: auto;
+margin-right: auto;
+width: 450px;
+border-radius: 15px 15px 0 0;
+
+}
+#userInput {
+text-align: center;
+width: 100%;
+margin-top: 60px;
+}
+#textInput {
+    width: 88%;
+    background: #ffffff;
+    padding: 15px 70px 15px 15px;
+    resize: none;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #1d2671;
+    color: #7a7a7a;
+    font-weight: normal;
+    font-size: 18px;
+    transition: border-color 0.5s ease;
+    margin-bottom: 20px;
+}
+
+#textInput:focus{
+    border-color: #f9dcff;
+}
+#buttonInput {
+    padding: 10px 40px;
+    font-family: monospace;
+    font-size: 20px;
+    background-image: linear-gradient(to right, #c33764, #1d2671);
+    border: none;
+    transition: transform 0.5s ease;
+    width: 88%;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    color: white;
+}
+
+.userText {
+color: white;
+font-family: monospace;
+font-size: 17px;
+text-align: right;
+line-height: 30px;
+}
+.userText span {
+/* background-color: #009688; */
+padding: 10px;
+border-radius: 2px;
+}
+.botText {
+color: white;
+font-family: monospace;
+font-size: 20px;
+}
+
+.chat-header{
+    padding: 15px;
+    display: block;
+    text-align: center;
+    border-radius: 15px 15px 0 0;
+}
+.botText span {
+    display: inline-block;
+    width: calc(100% - 50px);
+    color: #fff;
+}
+#tidbit {
+position:absolute;
+bottom:0;
+right:0;
+width: 300px;
+}
+
+.chat-bot-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    height: 50px;
+    width: 50px;
+    background-image: linear-gradient(to right, #673ab7, #813bcb, #9e38de, #bc32ef, #dc22ff);
+    z-index: 9999;
+    border-radius: 30px;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+
+.chat-bot-icon img {
+    height: 0px;
+    width: 0px;
+    position: absolute;
+    right: -13px;
+    top: -33px;
+}
+.chat-bot-icon svg {
+    color: #fff;
+    -moz-transition: all 0.5s linear;
+    -webkit-transition: all 0.5s linear;
+    transition: transform 0.5s linear;
+    position: absolute;
+    left: 13px;
+    top: 13px;
+    opacity: 0;
+    z-index: -1;
+}
+.chat-bot-icon svg.animate {
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+    opacity: 1;
+    z-index: 1;
+}
+
+
+</style>
+{% endblock %}
+
+{% block body %} 
+
+
+<section class="hero">
+    <div class="overlay"></div>
+   <div class="inner">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Uncommon.org</h1>
+            <p>Bringing resources to africa</p>
+        </div>
+
+        <div class="col-md-6">
+            <div class="inner">
+            <form action="">
+                <h3>Donate Here</h3>
+                <input type="text" placeholder="your name">
+                <input type="email" placeholder="your email"> <br>
+                <label for="">Donation Type:</label>
+                <select name="donation" id="">
+                    <option value="Weekly">Weekly</option>
+                    <option value="">Monthly</option>
+                    <option value="">Yearly</option>
+                </select>
+                <textarea name="Message" id="" cols="30" rows="5" placeholder="Your Message"></textarea>
+                <button>Donate</button>
+            </form>
+            </div>
+        </div>
+    </div>
+   </div>
+</section>
+
+<section class="about">
+    <div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="../static/KW2.jpg" alt="" width="100%">
+        </div>
+
+        <div class="col-md-6">
+        <div class="inner">
+            <h2> About Uncommon.org</h2>
+            <p>
+                Lorem ipsum, dolor sit amet consectetur a
+                dipisicing elit. Commodi impedit maiores 
+                consequuntur aspernatur quae nostrum la
+                udantium laborum minima magni rem animi 
+                doloremque odio quis velit repudiandae 
+                adipisci ratione modi voluptatum, dicta
+                 officia? Iure, debitis consequatur nemo 
+                 placeat, maiores pariatur saepe vitae 
+                 vero ad magnam 
+                veritatis voluptates fuga autem porro animi!
+            </p>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisi
+                ing elit. Doloremque asperiores maxime cumque 
+                empora excepturi repellat nesciunt dolore aliquam 
+                magni nulla perspiciatis vitae mollitia perferendis maiores 
+                reiciendis, officia nostrum. Nobis, fugiat.</p>
+        </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<section class="services text-center">
+    <h2>What we do</h2>
+    <div class="services-inner d-flex">
+     <div class="inner">
+        <img src="../static/img/analytics.png" alt="">
+        <h4>Web Design</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates harum aliquam quidem ut nemo saepe 
+            laudantium mollitia distinctio animi aut.</p>
+     </div>
+
+     <div class="inner">
+        <img src="../static/img/research.png" alt="">
+        <h4>Web Development</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates harum aliquam quidem ut nemo saepe 
+            laudantium mollitia distinctio animi aut.</p>
+     </div>
+
+     <div class="inner">
+        <img src="../static/img/pie-chart.png" alt="">
+        <h4>Digital Marketing & SEO</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates harum aliquam quidem ut nemo saepe 
+            laudantium mollitia distinctio animi aut.</p>
+     </div>
+    </div>
+</section>
+
+
+<section class="gallery container text-center">
+    <h2>Gallery</h2>
+    <img src="../static/img/MU2.jpg" alt="">
+    <img src="../static/img/KW3.jpg" alt="">
+    <img src="../static/img/MU3.jpg" alt="">
+    <img src="../static/img/KW3.jpg" alt="">
+    <img src="../static/img/KW1.jpg" alt="">
+    <img src="../static/img/MU3.jpg" alt="">
+    
+    <img src="../static/img/MU2.jpg" alt="">
+    <img src="../static/img/KW1.jpg" alt="">
+    
+    
+</section>
+
+
+<div class="chat-screen">
+    <div id="chatbox">
+    <div class="chat-header">
+        <p class="botText"><span>We are online. Let's Chat!</span></p>
+    </div>
+    </div>
+    
+    <div id="userInput">
+    <input id="textInput" type="text" name="msg" placeholder="Message">
+    <input id="buttonInput" type="submit" value="Send">
+    </div>
+    
+    </div>
+    
+    <div class="chat-bot-icon">
+        <img src="../static/img/MAIL ICON.png"/>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square animate"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x "><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </div>
+    
+    <script>
+    
+    
+    $(document).ready(function () {
+            //Toggle fullscreen
+            $(".chat-bot-icon").click(function (e) {
+                $(this).children('img').toggleClass('hide');
+                $(this).children('svg').toggleClass('animate');
+                $('.chat-screen').toggleClass('show-chat');
+            });
+    })
+    
+    function getBotResponse() {
+    var rawText = $("#textInput").val();
+    var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+    $("#textInput").val("");
+    $("#chatbox").append(userHtml);
+    document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+    $.get("/get", { msg: rawText }).done(function(data) {
+    var botHtml = '<p class="botText"><span>' + data + '</span></p>';
+    $("#chatbox").append(botHtml);
+    document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+    });
+    }
+    $("#textInput").keypress(function(e) {
+    if(e.which == 13) {
+    getBotResponse();
+    }
+    });
+    $("#buttonInput").click(function() {
+    getBotResponse();
+    })
+    </script>
+    </div>
+
+
+
+
+<footer>
+    <div class="inner bg-dark text-center p-5">
+        <img src="../static/img/logo.png" alt="">
+        <div class="social">
+            <a href=""><img src="../static/img/facebook-letter-logo.png" alt=""></a>
+            <a href=""><img src="../static/img/twitter-logo-silhouette.png" alt=""></a>
+            <a href=""><img src="../static/img/linkedin-logo.png" alt=""></a>
+        </div>
+    </div>
+</footer>
+
+
+{% endblock %}
+
